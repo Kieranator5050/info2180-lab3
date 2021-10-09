@@ -15,7 +15,7 @@ function initBoard(divs){
   for(let i = 0; i<divs.length; i++){
 
     //Set class to Square
-    divs[i].className = "square";
+    divs[i].classList.add("square");
 
     //Add Event Listeners
     let isClicked = false;
@@ -29,6 +29,16 @@ function initBoard(divs){
           gamestatus++;
       }
     });
+
+    divs[i].addEventListener("mouseover", ()=>{
+      //console.log("Hovered over ", divs[i]);
+      divs[i].classList.add("hover");
+    });
+    divs[i].addEventListener("mouseout", ()=>{
+      //console.log("Hovered over ", divs[i]);
+      divs[i].classList.remove("hover");
+    });
+
   }
 }
 
