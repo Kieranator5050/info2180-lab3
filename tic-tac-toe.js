@@ -1,5 +1,5 @@
 let gamestatus = 0;
-let winnerFound = false;
+let winstatus = false;
 
 //Determines if an X or O should be inserted
 function checkStatus(status, div){
@@ -72,13 +72,14 @@ function initBoard(divs){
   //Assuming parameter is array of divs
   for(let i = 0; i<divs.length; i++){
     //Set class to Square
+    divs[i].innerHTML = "";
     divs[i].classList.add("square");
     divs[i].id = i;
     //Add Event Listeners
     let isClicked = false;
     divs[i].addEventListener("click", ()=>{
       //If not clicked check for the following
-        if(!isClicked){
+        if(!isClicked && !winstatus){
             isClicked = true;
             //Pass in game status parameter
             let currVal = checkStatus(gamestatus, divs[i]);
@@ -86,6 +87,7 @@ function initBoard(divs){
               let winDiv = document.getElementById('status');
               winDiv.classList.add("you-won");
               winDiv.innerHTML = "Congratulations! "+currVal+" is the winner!";
+              winstatus = true;
             }
             gamestatus++;
         }
@@ -101,6 +103,18 @@ function initBoard(divs){
       divs[i].classList.remove("hover");
     });
   }
+
+  //Adding Event listener to reset
+  document.getElementsByClassName("btn")[0].addEventListener("click", ()=>{
+    window.location.reload();
+    /*console.log("Clicked");
+    gamestatus = 0;
+    let winDiv = document.getElementById('status');
+    winDiv.classList.remove("you-won");
+    winDiv.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+    initBoard(divs);*/
+  });
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
