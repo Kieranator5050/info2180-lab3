@@ -93,6 +93,10 @@ function initBoard(divs){
         }
         if(gamestatus>8){
           console.log("Game Over");
+          if(gamestatus>8 && !winstatus){
+            let winDiv = document.getElementById('status');
+            winDiv.innerHTML = "DRAW"
+          }
         }
     });
 
