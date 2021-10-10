@@ -4,45 +4,32 @@ let winstatus = false;
 //Determines if an X or O should be inserted
 function checkStatus(status, div){
   if(status%2==0){
-    //console.log("O");
-    div.innerHTML = "X";
-    return "X";
+    div.innerHTML = "X"; return "X";
   } else {
-    //console.log("X");
-    div.innerHTML = "O";
-    return "O";
+    div.innerHTML = "O"; return "O";
   }
 }
 
+//Function to check equality for 2 arrays, source : geeksforgeeks
 function arrayEquals(a, b) {
-  return Array.isArray(a) &&
-    Array.isArray(b) &&
-    a.length === b.length &&
-    a.every((val, index) => val === b[index]);
+  return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((val, index) => val === b[index]);
 }
 
 function checkWinner(divs){
   console.log("--------------");
-  //console.log(divs.length)
-  let checkArr = [];
-  let tempArr = [];
-  let checkArr2 = [];
+  let checkArr = []; let checkArr2 = [];
   let rLetters = Math.sqrt(divs.length);//Number of Rows & Columns is nxn grid
   let oLetter = "O "; let oArr = oLetter.repeat(rLetters).split(" "); oArr.pop();
   let xLetter = "X "; let xArr = xLetter.repeat(rLetters).split(" "); xArr.pop();
-  //console.log(oArr,xArr);
 
   //Checking Columns & Rows & Diagonal
   for(let j=0; j<rLetters; j++){
-
     //Columns
     for(let i=j; i<divs.length; i+=rLetters){
-      //console.log(i);
       checkArr.push(divs[i].innerHTML);
     }
     //Rows
     for(let i=j*rLetters; i<(j*rLetters+rLetters); i+=1){
-      //console.log(i);
       checkArr2.push(divs[i].innerHTML);
     }
     //Diagonal
@@ -54,9 +41,7 @@ function checkWinner(divs){
     && divs[2].innerHTML.length>0 && divs[4].innerHTML.length>0 && divs[6].innerHTML.length>0){
       return true;
     }
-
-    //console.log(checkArr, oArr); console.log(checkArr, xArr);
-    console.log(checkArr2, oArr); console.log(checkArr2, xArr);
+    //Check if winner was found, if not reset check arrays
     if(arrayEquals(checkArr,oArr) || arrayEquals(checkArr,xArr)
     || arrayEquals(checkArr2,oArr) || arrayEquals(checkArr2,xArr)){
       return true;
@@ -91,13 +76,10 @@ function initBoard(divs){
             }
             gamestatus++;
         }
-        if(gamestatus>8){
-          console.log("Game Over");
           if(gamestatus>8 && !winstatus){
             let winDiv = document.getElementById('status');
-            winDiv.innerHTML = "DRAW"
+            winDiv.innerHTML = "DRAW";
           }
-        }
     });
 
     divs[i].addEventListener("mouseover", ()=>{
@@ -111,12 +93,6 @@ function initBoard(divs){
   //Adding Event listener to reset
   document.getElementsByClassName("btn")[0].addEventListener("click", ()=>{
     window.location.reload();
-    /*console.log("Clicked");
-    gamestatus = 0;
-    let winDiv = document.getElementById('status');
-    winDiv.classList.remove("you-won");
-    winDiv.innerHTML = "Move your mouse over a square and click to play an X or an O.";
-    initBoard(divs);*/
   });
 
 }
